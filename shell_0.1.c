@@ -9,6 +9,62 @@
 #define MAX_ARGS 64
 
 /**
+* get_command - function to handle user command
+* @command: user command
+*/
+
+void get_command(char *command)
+{
+	printf("#cisfun$ ");/* Display the prompt */
+	if (fgets(command, sizeof(command), stdin) == NULL)
+	{
+		/* Handle the "end of file" condition (Ctrl+D)	*/
+		printf("\n");
+		break
+	}
+	/* Remove the newline character from the input */
+	command[strcspn(command, "\n")] = '\0';
+}
+
+/**
+ * tokenize_command - Tokenize the command and its arguments
+ * @command: The command string
+ * @args: An array of strings to store the arguments
+ * @arg_count: Pointer to store the argument count
+*/
+
+void tokenize_command(char *command, char **args, int *arg_count)
+{
+	*arg_count = 0;
+
+	args[*arg_count] = strok(command, " ");
+
+	while (args[*arg_count] != NULL)
+	{
+		(*arg_count)++;
+		args[*arg_count] = strok(NULL, " ");
+	}
+	args[*arg_count] = NULL;/* Set the last element to NULL for execvp */
+}
+
+
+/**
+* exec_command - function to execute user command
+* @args: An array of strings containing the command and its arguments
+* @arg_count: The number of arguments in the args array
+*/
+
+void exec_command(char **args, int arg_count)
+{
+	if (execvp(args[0], args) == -1)
+	{
+		/* If an executable cannot be found, print an error message */
+		perror(args[0]);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
  * main	- simple shell program
  * version:0.1
  * Return: return is 0
@@ -18,31 +74,15 @@ int main(void)
 {
 	char command[MAX_COMMAND_LENGTH];
 	char *args[MAX_ARGS];
-	int arg_count;
+	int arg_count, status;
 	pid_t pid;
 
 	while (1)
 	{
-		printf("#cisfun$ ");/* Display the prompt */
-		if (fgets(command, sizeof(command), stdin) == NULL)
-		{
-			/* Handle the "end of file" condition (Ctrl+D)	*/
-			printf("\n");
-			break;
-		}
+		get_command(command);
 
-		/* Remove the newline character from the input */
-		command[strcspn(command, "\n")] = '\0';
+		tokenize_command(command, args, &arg_count);
 
-		/* Tokenize the command and its arguments */
-		arg_count = 0;
-
-		args[arg_count] = strtok(command, " ");
-		while (args[arg_count] != NULL)
-		{
-			arg_count++;
-			args[arg_count] = strtok(NULL, " ");
-		}
 		if (arg_count == 0)
 		{
 			/* Empty command */
@@ -58,25 +98,14 @@ int main(void)
 		}
 		else if (pid == 0)
 		{
-			/* Child process */
-			args[arg_count] = NULL;
-
-			/* Set the last element to NULL for execvp */
-			if (execvp(args[0], args) == -1)
-			{
-				/* If an executable cannot be found, print an error message */
-				perror(args[0]);
-				exit(EXIT_FAILURE);
-			}
+			/* child process */
+			exec_command(args, arg_count);
 		}
 		else
 		{
 			/* parent process */
-			int status;
-
-			waitpid(pid, &status, 0);
+			waitpid(pid, &status, -);
 		}
 	}
 	return (0);
 }
-
