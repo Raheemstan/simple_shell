@@ -20,7 +20,7 @@ void get_command(char *command)
 	{
 		/* Handle the "end of file" condition (Ctrl+D)	*/
 		printf("\n");
-		break
+		exit(EXIT_SUCCESS);
 	}
 	/* Remove the newline character from the input */
 	command[strcspn(command, "\n")] = '\0';
@@ -37,12 +37,12 @@ void tokenize_command(char *command, char **args, int *arg_count)
 {
 	*arg_count = 0;
 
-	args[*arg_count] = strok(command, " ");
+	args[*arg_count] = strtok(command, " ");
 
 	while (args[*arg_count] != NULL)
 	{
 		(*arg_count)++;
-		args[*arg_count] = strok(NULL, " ");
+		args[*arg_count] = strtok(NULL, " ");
 	}
 	args[*arg_count] = NULL;/* Set the last element to NULL for execvp */
 }
@@ -51,10 +51,9 @@ void tokenize_command(char *command, char **args, int *arg_count)
 /**
 * exec_command - function to execute user command
 * @args: An array of strings containing the command and its arguments
-* @arg_count: The number of arguments in the args array
 */
 
-void exec_command(char **args, int arg_count)
+void exec_command(char **args)
 {
 	if (execvp(args[0], args) == -1)
 	{
@@ -99,12 +98,12 @@ int main(void)
 		else if (pid == 0)
 		{
 			/* child process */
-			exec_command(args, arg_count);
+			exec_command(args);
 		}
 		else
 		{
 			/* parent process */
-			waitpid(pid, &status, -);
+			waitpid(pid, &status, 0);
 		}
 	}
 	return (0);
