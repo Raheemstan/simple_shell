@@ -50,15 +50,15 @@ typedef struct liststr
 } list_t;
 
 /**
- * structr ShellInfo  - Structure to store information passed into functions,
+ * struct ShellInfo  - Structure to store information passed into functions,
  * allowing uniform prototype for function pointer struct
  * @arg: a string generated from getline containing arguments
  * @argv: an array of strings generated from arg
- * @path a string path for the current command
+ * @path: a string path for the current command
  * @argc: the argument count
  * @line_count: the error count
- * @err_num: the error code for exit()s
- * @linecout_flag: if on count this line of input
+ * @err_num: the error code for exit()
+ * @linecount_flag: if on count this line of input
  * @fname: the program filename
  * @env: linked list local copy of environ
  * @environ: custom modified copy of environ from LL env
@@ -71,6 +71,7 @@ typedef struct liststr
  * @readfd: the fd from which to read line input
  * @histcount: the history line number count
  */
+
 typedef struct ShellInfo
 {
 	char *arg;
@@ -88,23 +89,24 @@ typedef struct ShellInfo
 	int env_changed;
 	int status;
 
-	char **cmd_buf;	  /* pointer to cmd ; chain buffer, for memory management */
-	int cmd_buf_type; /* CMD_type ||, &&, ; */
+	char **cmd_buf;
+	int cmd_buf_type;
 	int readfd;
 	int histcount;
 } ShellInfo;
 
-#define INFO_INIT                                                               \
-	{                                                                           \
-		NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-			0, 0, 0                                                             \
+#define INFO_INIT                                                         \
+	{                                                                     \
+		NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, \
+			NULL, 0, 0, 0                                                 \
 	}
 
 /**
  * struct builtin - contains a builtin string and related function
- * type: the builtin command flag
+ * @type: the builtin command flag
  * @func: the function
  */
+
 typedef struct builtin
 {
 	char *type;

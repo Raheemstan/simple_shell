@@ -16,7 +16,7 @@ int hsh(ShellInfo  *info, char **av)
 	{
 		clear_info(info);
 		if (interactive(info))
-			_puts("$ ");
+			_puts("#cisfun$ ");
 		_eputchar(BUF_FLUSH);
 		r = get_input(info);
 		if (r != -1)
