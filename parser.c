@@ -32,7 +32,7 @@ int is_cmd(ShellInfo  *info, char *path)
  */
 char *dup_chars(char *pathstr, int start, int stop)
 {
-	static xhar buf[1024];
+	static char buf[1024];
 	int i = 0, k = 0;
 
 	for (k = 0, i = start; i < stop; i++)

@@ -47,10 +47,10 @@ char **list_to_strings(list_t *head)
 			return (NULL);
 		}
 
-		str = _strcpy(str, node->strs);
+		str = _strcpy(str, node->str);
 		strs[i] = str;
 	}
-	str[i] = NULL;
+	strs[i] = NULL;
 	return (strs);
 }
 

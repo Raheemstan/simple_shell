@@ -146,7 +146,7 @@ void _puts(char *);
 int _putchar(char);
 
 /* exits.c */
-char *_strncpy(char *, char *int);
+char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
 

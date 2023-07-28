@@ -65,7 +65,7 @@ ssize_t get_input(ShellInfo  *info)
 		j = i;
 		p = buf + i;
 
-		check_chain(info, buf, &j, len);
+		check_chain(info, buf, &j, i, len);
 		while (j < len)
 		{
 			if (is_chain(info, buf, &j))

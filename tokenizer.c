@@ -13,9 +13,6 @@ char **strtow(char *str, char *d)
 	char **s;
 
 	if (str == NULL || str[0] == 0)
-		char **s;
-
-	if (str == NULL || str[0] == 0)
 		return (NULL);
 	if (!d)
 		d = " ";
@@ -64,7 +61,7 @@ char **strtow2(char *str, char d)
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	for (i = 0; str[i] != '\0'; i++)
-		if ((str[i] != d && str[i  1] == d) ||
+		if ((str[i] != d && str[i + 1] == d) ||
 		    (str[i] != d && !str[i + 1]) || str[i + 1] == d)
 			numwords++;
 	if (numwords == 0)

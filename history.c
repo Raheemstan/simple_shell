@@ -32,7 +32,7 @@ char *get_history_file(ShellInfo  *info)
  */
 int write_history(ShellInfo  *info)
 {
-	size_t fd;
+	int fd;
 	char *filename = get_history_file(info);
 	list_t *node = NULL;
 
@@ -115,7 +115,7 @@ int build_history_list(ShellInfo  *info, char *buf, int linecount)
 	add_node_end(&node, buf, linecount);
 
 	if (!info->history)
-		ifo->history = node;
+		info->history = node;
 	return (0);
 }
 
