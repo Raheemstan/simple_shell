@@ -4,14 +4,14 @@
  * get_history_file - gets the history file
  * @info: parameter struct
  *
- * Return: allocated string containing history file
+ * Return: allocated string containg history file
  */
 
-char *get_history_file(ShellInfo  *info)
+char *get_history_file(info_t *info)
 {
 	char *buf, *dir;
 
-	dir = _getenv(info, "HIME=");
+	dir = _getenv(info, "HOME=");
 	if (!dir)
 		return (NULL);
 	buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
@@ -30,9 +30,9 @@ char *get_history_file(ShellInfo  *info)
  *
  * Return: 1 on success, else -1
  */
-int write_history(ShellInfo  *info)
+int write_history(info_t *info)
 {
-	int fd;
+	ssize_t fd;
 	char *filename = get_history_file(info);
 	list_t *node = NULL;
 
@@ -52,13 +52,14 @@ int write_history(ShellInfo  *info)
 	close(fd);
 	return (1);
 }
+
 /**
  * read_history - reads history from file
  * @info: the parameter struct
  *
- * Return: history on success, 0 otherwise
+ * Return: histcount on success, 0 otherwise
  */
-int read_history(ShellInfo  *info)
+int read_history(info_t *info)
 {
 	int i, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
@@ -75,6 +76,9 @@ int read_history(ShellInfo  *info)
 	if (!fstat(fd, &st))
 		fsize = st.st_size;
 	if (fsize < 2)
+		return (0);
+	buf = malloc(sizeof(char) * (fsize + 1));
+	if (!buf)
 		return (0);
 	rdlen = read(fd, buf, fsize);
 	buf[fsize] = 0;
@@ -106,7 +110,7 @@ int read_history(ShellInfo  *info)
  *
  * Return: Always 0
  */
-int build_history_list(ShellInfo  *info, char *buf, int linecount)
+int build_history_list(info_t *info, char *buf, int linecount)
 {
 	list_t *node = NULL;
 
@@ -125,7 +129,7 @@ int build_history_list(ShellInfo  *info, char *buf, int linecount)
  *
  * Return: the new histcount
  */
-int renumber_history(ShellInfo  *info)
+int renumber_history(info_t *info)
 {
 	list_t *node = info->history;
 	int i = 0;

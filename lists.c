@@ -114,6 +114,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 		node = *head;
 		*head = (*head)->next;
 		free(node->str);
+		free(node);
 		return (1);
 	}
 	node = *head;

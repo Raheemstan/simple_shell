@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _strlen - returns the length of a sting
+ * _strlen - returns the length of a string
  * @s: the string whose length to check
  *
  * Return: integer length of string
@@ -19,11 +19,11 @@ int _strlen(char *s)
 }
 
 /**
- * _strcmp - performs lexicographic comparison of two strings
- * @s1: the first string
- * @s2: the second string
+ * _strcmp - performs lexicogarphic comparison of two strangs.
+ * @s1: the first strang
+ * @s2: the second strang
  *
- * Return: negative if s1 < s2, positive if s1 > s2, 0 if s1 == s2
+ * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -36,7 +36,6 @@ int _strcmp(char *s1, char *s2)
 	}
 	if (*s1 == *s2)
 		return (0);
-
 	else
 		return (*s1 < *s2 ? -1 : 1);
 }
@@ -44,7 +43,7 @@ int _strcmp(char *s1, char *s2)
 /**
  * starts_with - checks if needle starts with haystack
  * @haystack: string to search
- * @needle: thr substring to find
+ * @needle: the substring to find
  *
  * Return: address of next char of haystack or NULL
  */

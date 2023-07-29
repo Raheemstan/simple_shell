@@ -12,7 +12,7 @@ char *_strcpy(char *dest, char *src)
 	int i = 0;
 
 	if (dest == src || src == 0)
-		return  (dest);
+		return (dest);
 	while (src[i])
 	{
 		dest[i] = src[i];
@@ -46,8 +46,8 @@ char *_strdup(const char *str)
 }
 
 /**
- * _puts - prints an input string
- * @str: the string to be printed
+ *_puts - prints an input string
+ *@str: the string to be printed
  *
  * Return: Nothing
  */

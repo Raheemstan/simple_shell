@@ -54,6 +54,7 @@ char **list_to_strings(list_t *head)
 	return (strs);
 }
 
+
 /**
  * print_list - prints all elements of a list_t linked list
  * @h: pointer to first node
@@ -81,7 +82,7 @@ size_t print_list(const list_t *h)
  * node_starts_with - returns node whose string starts with prefix
  * @node: pointer to list head
  * @prefix: string to match
- * @c: the next xharacter after prefix to matcg
+ * @c: the next character after prefix to match
  *
  * Return: match node or null
  */
